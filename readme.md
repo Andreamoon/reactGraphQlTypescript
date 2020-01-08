@@ -2,7 +2,7 @@
 
 ### What is this repository for?
 
-* Test for Keix.com
+* Test for NeuronStar
 * Version 0.1
 
 ### Install dependencies
