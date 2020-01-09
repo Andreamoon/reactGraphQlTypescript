@@ -25,6 +25,8 @@ const CREATE_TASK = gql`
 
 
 const InputForm = (props: any) => {
+  const { setCount ,addItem} = props
+
 
 
   const { value: id, bind: bindid, reset: resetid } = useInput('');
@@ -39,7 +41,7 @@ const InputForm = (props: any) => {
   });
 
   if (error) setTimeout(() => { alert(error.message), location.reload() }, 1000)
-  if (data) console.log(data)
+  if (data) setCount(data)
 
 
   let handleChange = (e: any) => {
@@ -66,8 +68,8 @@ const InputForm = (props: any) => {
 
   const handleSubmit = (evt: any) => {
     evt.preventDefault();
-
-    createTask()
+    // console.log(data)
+    createTask()  
 
     resetid();
     resettitle()
