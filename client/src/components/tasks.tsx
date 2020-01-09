@@ -29,7 +29,7 @@ const Tasks = (props: any) => {
 
     const mountInput = useRef();
 
-    const { loading, data } = useQuery<FetchTasks>(
+    const { loading, data, refetch } = useQuery<FetchTasks>(
         TASKS
     );
     const [count, setCount] = useState();
@@ -41,15 +41,7 @@ const Tasks = (props: any) => {
             console.log(mountInput)
         } else {
             // do componentDidUpate logic
-            // setCount(count)
-
-            if (!isEmpty(count)) {
-                //  console.log(count.createTask)
-                data.fetchTasks.push(count.createTask.slice(-1)[0])
-
-            }
-
-
+            refetch(count);
         }
     })
 
@@ -63,19 +55,12 @@ const Tasks = (props: any) => {
                 loading ? (
                     <p>Loading ...</p>
                 ) :
+                    data.fetchTasks.map((el: any, key: any) => (
+                        <Link key={key} to={`/${el.id}`} >
+                            <TaskItem key={key} task={el} />
+                        </Link>
 
-                    !isEmpty(count) ?
-                        count.createTask.map((el: any, key: any) => (
-                            <Link key={key} to={`/${el.id}`} >
-                                <TaskItem key={key} task={el} />
-                            </Link>
-
-                        )) : data.fetchTasks.map((el: any, key: any) => (
-                            <Link key={key} to={`/${el.id}`} >
-                                <TaskItem key={key} task={el} />
-                            </Link>
-
-                        ))
+                    ))
 
             }
         </React.Fragment>
