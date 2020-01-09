@@ -1,11 +1,33 @@
 import * as React from "react";
 import classNames from 'classnames';
-import { withRouter, RouteComponentProps } from "react-router";
+import { useMutation, useQuery, } from '@apollo/react-hooks';
 
-// import { Link } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from "react-router";
+import gql from 'graphql-tag'
+
+const DELETE_TASKBY_ID = gql`
+mutation deleteTaskById($taskId: Float!) {
+  deleteTaskById(taskId: $taskId){
+     title
+    completed     
+    }    
+  }
+`
 
 const TaskItem = (props: any) => {
-  const { task } = props
+  const { task, deleteTask } = props
+  const [deleteTaskById, { error, data }] = useMutation<{ taskId: Number }>(DELETE_TASKBY_ID, {
+    variables: { taskId: task.id },
+  });
+
+  if (data) deleteTask(data)
+  if (error) console.log(error)
+
+  const onClick = (evt: any) => {
+    evt.preventDefault();
+    deleteTaskById()
+
+  }
 
   return (
     <div className="card card-body mb-3">
@@ -28,7 +50,7 @@ const TaskItem = (props: any) => {
           </p>
         </div>
         <div className="col-md-3">
-
+          <span><i className="far fa-trash-alt" onClick={onClick}>{""}</i></span>
         </div>
       </div>
     </div>

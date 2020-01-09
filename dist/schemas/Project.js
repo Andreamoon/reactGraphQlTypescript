@@ -18,7 +18,7 @@ let Project = class Project {
 };
 __decorate([
     type_graphql_1.Field(type => type_graphql_1.Int),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], Project.prototype, "id", void 0);
 __decorate([
     type_graphql_1.Field(),

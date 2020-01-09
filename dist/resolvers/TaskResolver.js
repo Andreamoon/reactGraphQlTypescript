@@ -18,6 +18,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const type_graphql_1 = require("type-graphql");
 const data_1 = require("../data");
 const Task_1 = __importDefault(require("../schemas/Task"));
+let TaskInput = class TaskInput {
+};
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", Number)
+], TaskInput.prototype, "id", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], TaskInput.prototype, "title", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", Boolean)
+], TaskInput.prototype, "completed", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", Number)
+], TaskInput.prototype, "project_id", void 0);
+TaskInput = __decorate([
+    type_graphql_1.InputType()
+], TaskInput);
 let default_1 = class default_1 {
     fetchTasks() {
         return data_1.tasks;
@@ -26,6 +47,7 @@ let default_1 = class default_1 {
         return data_1.tasks.find(task => task.id === id);
     }
     markAsCompleted(taskId) {
+        console.log(taskId);
         const task = data_1.tasks.find(task => {
             return task.id === taskId;
         });
@@ -37,6 +59,16 @@ let default_1 = class default_1 {
         }
         task.completed = true;
         return task;
+    }
+    createTask(options) {
+        const { id } = options;
+        var index = data_1.tasks.findIndex(x => x.id == id);
+        if (index === -1) {
+            data_1.tasks.push(options);
+        }
+        else
+            throw new Error(`Il task con id:  ${id} è gia esistente`);
+        return data_1.tasks;
     }
     project(taskData) {
         return data_1.projects.find(project => {
@@ -64,6 +96,13 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Object)
 ], default_1.prototype, "markAsCompleted", null);
+__decorate([
+    type_graphql_1.Mutation(returns => [Task_1.default], { nullable: true }),
+    __param(0, type_graphql_1.Arg("options", () => TaskInput)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], default_1.prototype, "createTask", null);
 __decorate([
     type_graphql_1.FieldResolver(),
     __param(0, type_graphql_1.Root()),

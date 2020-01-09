@@ -33,8 +33,7 @@ const Tasks = (props: any) => {
         TASKS
     );
     const [count, setCount] = useState();
-
-
+    const [task, deleteTask] = useState()
 
     useEffect(() => {
         if (!mountInput) {
@@ -57,7 +56,7 @@ const Tasks = (props: any) => {
                 ) :
                     data.fetchTasks.map((el: any, key: any) => (
                         <Link key={key} to={`/${el.id}`} >
-                            <TaskItem key={key} task={el} />
+                            <TaskItem key={key} task={el} deleteTask={deleteTask} />
                         </Link>
 
                     ))

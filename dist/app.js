@@ -38,7 +38,7 @@ function bootstrap() {
         const server = new graphql_yoga_1.GraphQLServer({
             schema
         });
-        server.start(() => console.log("Server is running on http://localhost:4000"));
+        server.start(() => console.log("GraphQl Yoga  is running on http://localhost:4000"));
     });
 }
 bootstrap();
@@ -46,6 +46,6 @@ app.get("/", (req, res) => {
     res.sendFile(path_1.default.join(publicPath, "index.html"));
 });
 app.listen(port, () => {
-    console.log("listen on port 5000");
+    console.log("App listening on port 5000");
 });
 //# sourceMappingURL=app.js.map
