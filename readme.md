@@ -2,7 +2,7 @@
 
 ### What is this repository for?
 
-* Test for NeuronStar
+* Test for Typescript Nodejs React Graphql
 * Version 0.1
 
 ### Install dependencies
